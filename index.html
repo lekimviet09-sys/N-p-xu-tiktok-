@@ -1,71 +1,119 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Shop Xu Demo</title>
-
-<style>
-body{
-  font-family:Arial;
-  background:#0f0f10;
-  color:white;
-  text-align:center;
-}
-
-.box{
-  margin-top:50px;
-  background:#1c1c1f;
-  padding:20px;
-  border-radius:12px;
-  width:80%;
-  margin-left:auto;
-  margin-right:auto;
-}
-
-input,select{
-  padding:10px;
-  width:90%;
-  margin:10px 0;
-  border-radius:8px;
-  border:none;
-}
-
-button{
-  padding:10px 15px;
-  background:#ff0050;
-  color:white;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.page{
-  display:none;
-}
-</style>
+  <title>Shop Xu TikTok</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- TRANG 1 -->
-<div id="home" class="page" style="display:block">
-  <h1>SHOP XU DEMO</h1>
+<div class="header">
+  <b>SHOP XU TIKTOK</b>
+  <span>DEMO</span>
+</div>
 
-  <div class="box">
-    <input id="user" placeholder="Nhập username">
+<div class="container">
+  <div class="card">
+    <h2>Nạp xu TikTok</h2>
+    <p class="note">Demo giao diện, không thanh toán thật</p>
 
-    <select id="pack">
-      <option>70 xu - 20k</option>
-      <option>350 xu - 100k</option>
-      <option>700 xu - 200k</option>
-    </select>
+    <form action="checkout.php" method="POST">
+      Username:
+      <input class="input" name="user" placeholder="@username">
 
-    <button onclick="toCheckout()">Tạo đơn</button>
+      Gói:
+      <select name="pack">
+        <option value="70 xu - 20k">70 xu - 20k</option>
+        <option value="350 xu - 100k">350 xu - 100k</option>
+        <option value="700 xu - 200k">700 xu - 200k</option>
+      </select>
+
+      <button class="btn">Tiếp tục</button>
+    </form>
   </div>
 </div>
 
-<!-- TRANG 2 -->
-<div id="checkout" class="page">
-  <h2>Xác nhận đơn</h2>
-  <p id="info"></p>
-  <button
+</body>
+</html>
+<?php
+$user = $_POST['user'];
+$pack = $_POST['pack'];
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header"><b>Thanh toán</b></div>
+
+<div class="container">
+  <div class="card">
+    <h3>Thông tin đơn</h3>
+    <p>Username: <?php echo htmlspecialchars($user); ?></p>
+    <p>Gói: <?php echo htmlspecialchars($pack); ?></p>
+
+    <h3>Phương thức</h3>
+    <p>MoMo / Ngân hàng (DEMO)</p>
+
+    <form action="pay.php" method="POST">
+      <input type="hidden" name="user" value="<?php echo htmlspecialchars($user); ?>">
+      <input type="hidden" name="pack" value="<?php echo htmlspecialchars($pack); ?>">
+      <button class="btn">Thanh toán</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
+<?php
+$user = $_POST['user'];
+$pack = $_POST['pack'];
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="2;url=success.php">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="loading">Đang xử lý thanh toán...</div>
+
+<form id="f" action="success.php" method="POST">
+<input type="hidden" name="user" value="<?php echo $user; ?>">
+<input type="hidden" name="pack" value="<?php echo $pack; ?>">
+</form>
+
+<script>
+setTimeout(()=>document.getElementById("f").submit(),2000);
+</script>
+
+</body>
+</html><?php
+$user = $_POST['user'];
+$pack = $_POST['pack'];
+
+file_put_contents("orders.txt", "$user - $pack\n", FILE_APPEND);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <h2 class="success">Thanh toán thành công (DEMO)</h2>
+    <p><?php echo $user; ?></p>
+    <p><?php echo $pack; ?></p>
+  </div>
+</div>
+
+</body>
+</html><h2>Đơn hàng</h2>
+<pre>
+<?php echo @file_get_contents("orders.txt"); ?>
+</pre>
+
