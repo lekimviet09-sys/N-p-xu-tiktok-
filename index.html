@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Shop Xu Demo</title>
+
+<style>
+body{
+  font-family:Arial;
+  background:#0f0f10;
+  color:white;
+  text-align:center;
+}
+
+.box{
+  margin-top:50px;
+  background:#1c1c1f;
+  padding:20px;
+  border-radius:12px;
+  width:80%;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+input,select{
+  padding:10px;
+  width:90%;
+  margin:10px 0;
+  border-radius:8px;
+  border:none;
+}
+
+button{
+  padding:10px 15px;
+  background:#ff0050;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.page{
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TRANG 1 -->
+<div id="home" class="page" style="display:block">
+  <h1>SHOP XU DEMO</h1>
+
+  <div class="box">
+    <input id="user" placeholder="Nhập username">
+
+    <select id="pack">
+      <option>70 xu - 20k</option>
+      <option>350 xu - 100k</option>
+      <option>700 xu - 200k</option>
+    </select>
+
+    <button onclick="toCheckout()">Tạo đơn</button>
+  </div>
+</div>
+
+<!-- TRANG 2 -->
+<div id="checkout" class="page">
+  <h2>Xác nhận đơn</h2>
+  <p id="info"></p>
+  <button
